@@ -1,0 +1,22 @@
+{
+  "name": "browserless-mastra-examples",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mastra (TypeScript) examples for the Browserless MCP server",
+  "scripts": {
+    "quickstart": "tsx quickstart.ts",
+    "research": "tsx research_agent.ts",
+    "browser": "tsx browser_agent.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.75",
+    "@mastra/core": "^1.32.1",
+    "@mastra/mcp": "^1.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}
