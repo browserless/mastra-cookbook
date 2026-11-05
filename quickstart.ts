@@ -20,11 +20,15 @@ for (const name of Object.keys(allTools)) console.log(`  - ${name}`);
 // Direct call: smartscraper a deterministic URL — no LLM in the loop.
 const smartscraperKey = Object.keys(allTools).find((k) =>
   k.endsWith("browserless_smartscraper"),
-)!;
-const scraped = await allTools[smartscraperKey].execute({
+);
+const smartscraper = smartscraperKey ? allTools[smartscraperKey] : undefined;
+if (!smartscraper?.execute) {
+  throw new Error("Browserless smartscraper tool is unavailable");
+}
+const scraped = await smartscraper.execute({
   url: "https://example.com",
   formats: ["markdown"],
-});
+}, {});
 console.log("\n--- direct smartscraper call ---");
 console.log(JSON.stringify(scraped).slice(0, 400));
 
@@ -37,6 +41,7 @@ const statelessTools = Object.fromEntries(
 );
 
 const agent = new Agent({
+  id: "browserless-agent",
   name: "BrowserlessAgent",
   instructions:
     "You are a research assistant. Use the Browserless tools to scrape and summarize the web.",

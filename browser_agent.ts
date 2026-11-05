@@ -30,18 +30,21 @@ console.log(`Loaded ${Object.keys(allTools).length} tools`);
 // --- direct multi-turn proof: state must survive across calls ---
 const agentToolKey = Object.keys(allTools).find((k) =>
   k.endsWith("browserless_agent"),
-)!;
-const agentTool = allTools[agentToolKey];
+);
+const agentTool = agentToolKey ? allTools[agentToolKey] : undefined;
+if (!agentTool?.execute) {
+  throw new Error("Browserless agent tool is unavailable");
+}
 
 await agentTool.execute({
   method: "goto",
   params: { url: "https://example.com" },
-});
-await agentTool.execute({ method: "snapshot" });
+}, {});
+await agentTool.execute({ method: "snapshot" }, {});
 const result = await agentTool.execute({
   method: "text",
   params: { selector: "h1" },
-});
+}, {});
 console.log("multi-turn proof:", JSON.stringify(result).slice(0, 200));
 if (!JSON.stringify(result).includes("Example Domain")) {
   throw new Error("Session state was not preserved between calls");
@@ -49,6 +52,7 @@ if (!JSON.stringify(result).includes("Example Domain")) {
 
 // --- full agent loop with all 10 tools ---
 const agent = new Agent({
+  id: "browserless-browser-agent",
   name: "BrowserlessBrowserAgent",
   instructions:
     "You drive a real browser via the browserless_agent tool. " +
