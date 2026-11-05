@@ -11,6 +11,12 @@ The hosted endpoint at `https://mcp.browserless.io/mcp` exposes 10 tools auto-im
 
 ## Setup
 
+Use Node.js **26.x** for development. `.node-version` selects the floating major
+for compatible version managers; with nvm, run `nvm install 26 && nvm use 26`.
+Node 22.x (22.13 or newer) and 24.x remain compatibility targets for customers
+running these examples; this does not impose a new minimum runtime. Official Linux Node 26
+binaries require `libatomic` (Debian/Ubuntu: `libatomic1`).
+
 ```bash
 npm install
 export BROWSERLESS_TOKEN=<your-token>
