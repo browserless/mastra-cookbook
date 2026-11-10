@@ -22,6 +22,7 @@ const statelessTools = Object.fromEntries(
 );
 
 const agent = new Agent({
+  id: "browserless-research-agent",
   name: "BrowserlessResearchAgent",
   instructions:
     "You are a research assistant. Use browserless_search to find sources, then browserless_smartscraper to read them. Cite URLs in your output.",

@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Mastra (TypeScript) examples for the Browserless MCP server",
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "quickstart": "tsx quickstart.ts",
     "research": "tsx research_agent.ts",
     "browser": "tsx browser_agent.ts"
